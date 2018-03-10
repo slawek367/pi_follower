@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 from config import Config
 from engine import Engine
+from time import sleep
 
 def set_sensors(sensors):
     GPIO.setup(sensors, GPIO.IN)
@@ -14,10 +15,58 @@ def check_sensors_state(sensors):
             sensors_state.append("+ ")
     return sensors_state
 
+def test_left_engine():
+    print("Start left engine")
+    engine_left = Engine("left")
+    engine_left.set_forward_direction()
+    engine_left.set_pwm(50)
+    engine_left.start()
+    sleep(1)
+    engine_left.set_backward_direction()
+    sleep(1)
+    print("Stop left engine")
+    engine_left.stop()
+
+def test_right_engine():
+    print("Start right engine")
+    engine_right = Engine("right")
+    engine_right.set_forward_direction()
+    engine_right.set_pwm(50)
+    engine_right.start()
+    sleep(1)
+    engine_right.set_backward_direction()
+    sleep(1)
+    print("Stop right engine")
+    engine_right.stop() 
+
+def test_pwm():
+    engine_left = Engine("left")
+    engine_right = Engine("right")
+    engine_left.set_forward_direction()
+    engine_right.set_forward_direction()
+    engine_left.set_pwm(50)
+    engine_right.set_pwm(50)
+    engine_left.start()
+    engine_right.start()
+
+    for y in range(5):
+        for x in range(10, 100):
+            engine_left.set_pwm(x)
+            engine_right.set_pwm(x)
+            sleep(0.01)
+        for x in range(100, 10, -1):
+            engine_left.set_pwm(x)
+            engine_right.set_pwm(x)
+            sleep(0.003)  
+    engine_left.stop()
+    engine_right.stop()
+
 def main():
     GPIO.setmode(GPIO.BOARD) #refference by pin number
     GPIO.setwarnings(False)
-
+    test_left_engine()
+    test_right_engine()
+    test_pwm()
     while True:
         pass
     
