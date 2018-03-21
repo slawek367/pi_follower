@@ -61,6 +61,10 @@ def test_pwm():
     engine_left.stop()
     engine_right.stop()
 
+def ride_keyboard():
+    engine_left = Engine("left")
+    engine_right = Engine("right")
+
 def main():
     GPIO.setmode(GPIO.BOARD) #refference by pin number
     GPIO.setwarnings(False)
@@ -73,6 +77,19 @@ def main():
     GPIO.cleanup()
 
 main()
+
+'''
+TODO
+po I2c wyswietlacz oLED, BS1 przelutowac do gory
+    pin3 - SDA
+    pin5 - SCL
+czujnik temperatury i wilgotnosci DHT11, 1wire magistrala
+    pin8
+czujnik temperatury DS18B20, 1wire magistrala
+    pin37
+WS2811 - 2 w szeregu spiete
+    pin10
+'''
 
 '''
 sensors = [7, 11, 15, 13, 21, 19, 21, 23, 31, 29, 33, 35] #od lewej do prawej
