@@ -17,7 +17,7 @@ class Sensors():
         sensors_state = []
         for sensor in self.sensors:
             if GPIO.input(sensor):
-                sensors_state.append(False)
+                sensors_state.append(0)
             else:
-                sensors_state.append(True)
+                sensors_state.append(1)
         return sensors_state

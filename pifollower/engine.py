@@ -1,4 +1,4 @@
-from config import Config
+from pifollower.config import Config
 import RPi.GPIO as GPIO
 
 class Engine():
